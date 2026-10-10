@@ -467,7 +467,7 @@ su - username
 
 
 ```
-pacman -S --needed git base-devel rust
+sudo pacman -S --needed git base-devel rust
 ```
 
 
