@@ -171,7 +171,7 @@ arch-chroot /mnt
 ```
 
 
-At this point, you've successfully installed the base system onto the virtual disk. The next steps are configuring the installed system so it can boot on its own.
+At this point, you've successfully installed the base system onto the disk. The next steps are configuring the installed system so it can boot on its own.
 
 # zram-generator
 
