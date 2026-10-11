@@ -102,6 +102,9 @@ Create a **GPT** partition table with:
 | EFI System Partition | 6 GiB           | EFI System       |
 | Root (`/`)           | Remaining space | Linux filesystem |
 
+<img width="1021" height="767" alt="cfdisk" src="https://github.com/user-attachments/assets/9ef1eea5-a0ff-4d1d-9e7f-2a217124b200" />
+
+
 ## Format the partitions
 
 
@@ -668,3 +671,14 @@ umount -R /mnt
 ```
 reboot
 ```
+
+<img width="1018" height="767" alt="Limine-boot-menu" src="https://github.com/user-attachments/assets/048190af-f2ec-42f2-a352-a4d4cce44ee6" />
+
+<img width="1014" height="766" alt="KDE-Login" src="https://github.com/user-attachments/assets/6532d061-5517-4a28-a5d0-4caeb5901ac9" />
+
+<img width="1021" height="765" alt="KInfoCenter" src="https://github.com/user-attachments/assets/c8990c2a-0d73-45de-b24c-0066e5c2ab89" />
+
+<img width="1019" height="765" alt="btop" src="https://github.com/user-attachments/assets/30c77a61-9997-4dc9-b2d5-ef7e2be26336" />
+
+
+
