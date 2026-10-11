@@ -1,3 +1,5 @@
+<img width="1018" height="766" alt="Plasma-Desktop" src="https://github.com/user-attachments/assets/17b39f91-872c-4b96-9c09-9a3bc088326e" />
+
 # Guide description 
 
 A step-by-step Arch Linux installation guide for a **UEFI system using GPT, ext4, Limine, and the linux-zen kernel**. It covers disk partitioning, base system configuration, networking, ZRAM, users and sudo, automated Limine kernel management with `limine-mkinitcpio-hook`, and a functional KDE Plasma desktop. It also includes `linux-lts` as a fallback kernel and essential system services and utilities.
