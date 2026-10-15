@@ -200,6 +200,8 @@ compression-algorithm = zstd
 swap-priority = 100
 ```
 
+Save and exit (Ctrl + O, Enter, Ctrl + X).
+
 
 # Set time zone
 
@@ -360,7 +362,7 @@ Add the following:
 ```
 
 
-Save and exit.
+Save and exit (Ctrl + O, Enter, Ctrl + X).
 
 Display the file:
 
@@ -446,7 +448,7 @@ Remove the # so it becomes:
 ```
 
 
-Save and exit.
+Save and exit (Ctrl + O, Enter, Ctrl + X).
 
 >visudo checks the file for syntax errors before saving, which helps prevent accidentally breaking sudo.
 
@@ -564,6 +566,9 @@ KERNEL_CMDLINE[default]=root=PARTUUID=YOUR_PARTUUID rw quiet
 KERNEL_CMDLINE[linux-lts]=root=PARTUUID=YOUR_PARTUUID rw
 FIND_BOOTLOADERS=yes
 ```
+
+
+Save and exit (Ctrl + O, Enter, Ctrl + X).
 
 
 >Replace YOUR_PARTUUID with the PARTUUID from blkid.
