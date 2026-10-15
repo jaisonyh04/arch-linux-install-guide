@@ -2,12 +2,16 @@
 
 # Guide description 
 
-A step-by-step Arch Linux installation guide for a **UEFI system using GPT, ext4, Limine, and the linux-zen kernel**. It covers disk partitioning, base system configuration, networking, ZRAM, users and sudo, automated Limine kernel management with `limine-mkinitcpio-hook`, and a functional KDE Plasma desktop. It also includes `linux-lts` as a fallback kernel and essential system services and utilities.
+A step-by-step Arch Linux installation guide for a **UEFI system using GPT, ext4, Limine, and the linux-zen kernel**. It covers disk partitioning, base system configuration, networking, ZRAM, users and sudo, automated Limine kernel management with `limine-tool`, and a functional KDE Plasma desktop. It also includes `linux-lts` as a fallback kernel and essential system services and utilities.
+
+
+>[!important] **UEFI requirement:** This guide is intended exclusively for systems booted in UEFI mode with secure boot disabled. 
 
 
 # Boot the ISO
 
->**UEFI requirement:** This guide is intended exclusively for systems booted in UEFI mode. Verify the boot mode before continuing:
+Verify the boot mode before continuing:
+
 
 ```
 cat /sys/firmware/efi/fw_platform_size
@@ -32,7 +36,7 @@ ls /sys/firmware/efi/efivars
 
 
 
->If the directory exists and displays its contents, the system was booted in UEFI mode. If it does not exist, reboot and start the Arch installation medium using its UEFI entry.
+>[!note] If the directory exists and displays its contents, the system was booted in UEFI mode. If it does not exist, reboot and start the Arch installation medium using its UEFI entry.
 
 
 # Temporarily change the font for the Linux virtual console:
@@ -43,7 +47,7 @@ setfont ter-v24b
 ```
 
 
-verify internet:
+**Verify internet**:
 
 
 ```
@@ -51,7 +55,7 @@ ping -c 3 archlinux.org
 ```
 
 
->If it works, you're ready.
+>[!note] If it works, you're ready.
 
 
 ## Identify the target disk
@@ -73,7 +77,7 @@ For example:
 ```
 
 
-> **Warning:** Verify the disk model and capacity carefully. Selecting the wrong disk during partitioning or formatting can permanently destroy data.
+>[!warning] Verify the disk model and capacity carefully. Selecting the wrong disk during partitioning or formatting can permanently destroy data.
 
 
 # Partition the disk
@@ -99,7 +103,7 @@ Create a **GPT** partition table with:
 
 | Partition            | Size            | Type             |
 | -------------------- | --------------- | ---------------- |
-| EFI System Partition | 6 GiB           | EFI System       |
+| EFI System Partition | 2 GiB           | EFI System       |
 | Root (`/`)           | Remaining space | Linux filesystem |
 
 <img width="1021" height="767" alt="cfdisk" src="https://github.com/user-attachments/assets/9ef1eea5-a0ff-4d1d-9e7f-2a217124b200" />
@@ -151,7 +155,7 @@ pacstrap -K /mnt \
 ```
 
 
->**CPU microcode:** During `pacstrap`, add `intel-ucode` for an Intel processor or `amd-ucode` for an AMD processor. Install only the package that matches your CPU.
+>[!important] **CPU microcode**: During `pacstrap`, add `intel-ucode` for an Intel processor or `amd-ucode` for an AMD processor. Install only the package that matches your CPU.
 
 
 # Generate fstab
@@ -178,7 +182,7 @@ arch-chroot /mnt
 ```
 
 
-At this point, you've successfully installed the base system onto the disk. The next steps are configuring the installed system so it can boot on its own.
+>[!note] At this point, you've successfully installed the base system onto the disk. The next steps are configuring the installed system so it can boot on its own.
 
 # zram-generator
 
@@ -253,7 +257,7 @@ nano /etc/locale.gen
 
 Find the locales you want and uncomment them by removing the #.
 
-For an English system (recommended for Linux documentation and programming), uncomment:
+For an English system, uncomment:
 
 
 ```
@@ -285,7 +289,7 @@ Generating locales...
 
 **Set the default locale**
 
-If you want your system in English (my recommendation), run:
+If you want your system in English, run:
 
 
 ```
@@ -386,8 +390,7 @@ passwd
 ```
 
 
->You'll be prompted to enter and confirm a password. As you type, **nothing will appear on the screen**—this is normal in Linux.
->
+>[!note] You'll be prompted to enter and confirm a password. As you type, **nothing will appear on the screen**, this is normal in Linux.
 
 # Create the user
 
@@ -445,7 +448,7 @@ Remove the # so it becomes:
 
 Save and exit.
 
->visudo checks the file for syntax errors before saving, which helps prevent accidentally breaking sudo.
+>[!note] visudo checks the file for syntax errors before saving, which helps prevent accidentally breaking sudo.
 
 **Test (optional)**
 
@@ -457,7 +460,7 @@ id <username>
 ```
 
 
->You should see that **username** belongs to the wheel group.
+>[!note] You should see that **username** belongs to the wheel group.
 
 
 # Install limine-tool
@@ -466,7 +469,7 @@ id <username>
 
 
 ```
-su - username
+su - <username>
 ```
 
 
@@ -502,7 +505,7 @@ command -v limine-entry-tool
 
 
 
->You should get paths under `/usr/bin/`. The package provides these commands through a single `/usr/lib/limine/limine-tool` multicall executable.
+>[!note] You should get paths under `/usr/bin/`. The package provides these commands through a single `/usr/lib/limine/limine-tool` multicall executable.
 
 
 **Return to root**:
@@ -531,9 +534,11 @@ Expected:
 
 # Configure Limine:
 
+First obtain the **PARTUUID** of the **root partition**:
+
 
 ```
-blkid -s PARTUUID -o value /dev/nvme0n1p2
+blkid -s PARTUUID -o value /dev/<root-partition>
 ```
 
 
@@ -561,7 +566,7 @@ FIND_BOOTLOADERS=yes
 ```
 
 
->Replace YOUR_PARTUUID with the PARTUUID from blkid.
+>[!important] Replace YOUR_PARTUUID with the PARTUUID from blkid.
 
 
 # Install Limine into the EFI System Partition:
@@ -572,7 +577,7 @@ limine-install
 ```
 
 
->`limine-install` can detect the ESP and deploy Limine; if ESP auto-detection fails, `ESP_PATH` can be specified in `/etc/default/limine`.
+>[!note] `limine-install` can detect the ESP and deploy Limine; if ESP auto-detection fails, `ESP_PATH` can be specified in `/etc/default/limine`.
 
 
 Generate the initial configuration and kernel entries:
@@ -592,30 +597,23 @@ efibootmgr --verbose
 ```
 
 
-The tool automatically creates entries for both:
-
-- `linux-zen`
-    
-- `linux-lts`
-    
-
-using your current `mkinitcpio` presets. Future kernel updates regenerate the entries automatically.
+>[!note] The tool automatically creates entries for both `linux-zen` and `linux-lts`using your current `mkinitcpio` presets. Future kernel updates regenerate the entries automatically.
 
 
 # General Desktop and Utilities
 
 
-**Functional Plasma desktop**
+## **Functional Plasma desktop**
 
 
 ```
 pacman -S plasma-desktop plasma-login-manager \
     plasma-nm plasma-pa kscreen xdg-desktop-portal-kde \
     breeze breeze-gtk kde-gtk-config kwallet-pam \
-    noto-fonts noto-fonts-emoji
+    noto-fonts
 ```
 
-**Networking, audio, and firewall**
+## **Networking, audio, and firewall**
 
 
 ```
@@ -623,7 +621,7 @@ pacman -S firewalld plasma-firewall power-profiles-daemon python-gobject \
     pipewire pipewire-audio pipewire-pulse wireplumber
 ```
 
-**Applications**
+## **Applications**
 
 
 ```
@@ -632,7 +630,7 @@ pacman -S firefox btop vlc kcalc okular
 pacman -S spectacle kinfocenter
 ```
 
-**Enable the required system services**
+# **Enable the required system services**
 
 
 ```
@@ -640,8 +638,7 @@ systemctl enable NetworkManager.service firewalld.service plasmalogin.service po
 ```
 
 
->If you use Bluetooth, add:
->
+>[!note] If you use Bluetooth, add:
 
 ```
 pacman -S bluez bluez-utils bluedevil
@@ -649,7 +646,7 @@ systemctl enable bluetooth.service
 ```
 
 
-**Graphics driver:** Before rebooting, install the graphics stack that matches your GPU. Use `nvidia-open-dkms nvidia-utils` for supported NVIDIA GPUs, `mesa vulkan-intel` for Intel GPUs, `mesa vulkan-radeon` for AMD GPUs o `mesa mesa-utils` for a VM. Install only the appropriate option for your hardware.
+>[!important] **Graphics driver:** Before rebooting, install the graphics stack that matches your GPU. Use `nvidia-open-dkms nvidia-utils` for supported NVIDIA GPUs, `mesa vulkan-intel` for Intel GPUs, `mesa vulkan-radeon` for AMD GPUs o `mesa mesa-utils` for a virtual machine. Install only the appropriate option for your hardware.
 
 # Exit the chroot
 
@@ -671,6 +668,7 @@ umount -R /mnt
 ```
 reboot
 ```
+
 
 <img width="1018" height="767" alt="Limine-boot-menu" src="https://github.com/user-attachments/assets/048190af-f2ec-42f2-a352-a4d4cce44ee6" />
 
