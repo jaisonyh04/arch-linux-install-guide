@@ -36,7 +36,7 @@ ls /sys/firmware/efi/efivars
 
 
 
->[!note] If the directory exists and displays its contents, the system was booted in UEFI mode. If it does not exist, reboot and start the Arch installation medium using its UEFI entry.
+>If the directory exists and displays its contents, the system was booted in UEFI mode. If it does not exist, reboot and start the Arch installation medium using its UEFI entry.
 
 
 # Temporarily change the font for the Linux virtual console:
@@ -55,7 +55,7 @@ ping -c 3 archlinux.org
 ```
 
 
->[!note] If it works, you're ready.
+>If it works, you're ready.
 
 
 ## Identify the target disk
@@ -77,7 +77,7 @@ For example:
 ```
 
 
->[!warning] Verify the disk model and capacity carefully. Selecting the wrong disk during partitioning or formatting can permanently destroy data.
+>Verify the disk model and capacity carefully. Selecting the wrong disk during partitioning or formatting can permanently destroy data.
 
 
 # Partition the disk
@@ -155,7 +155,7 @@ pacstrap -K /mnt \
 ```
 
 
->[!important] **CPU microcode**: During `pacstrap`, add `intel-ucode` for an Intel processor or `amd-ucode` for an AMD processor. Install only the package that matches your CPU.
+>**CPU microcode**: During `pacstrap`, add `intel-ucode` for an Intel processor or `amd-ucode` for an AMD processor. Install only the package that matches your CPU.
 
 
 # Generate fstab
@@ -182,7 +182,7 @@ arch-chroot /mnt
 ```
 
 
->[!note] At this point, you've successfully installed the base system onto the disk. The next steps are configuring the installed system so it can boot on its own.
+>At this point, you've successfully installed the base system onto the disk. The next steps are configuring the installed system so it can boot on its own.
 
 # zram-generator
 
@@ -390,7 +390,7 @@ passwd
 ```
 
 
->[!note] You'll be prompted to enter and confirm a password. As you type, **nothing will appear on the screen**, this is normal in Linux.
+>You'll be prompted to enter and confirm a password. As you type, **nothing will appear on the screen**, this is normal in Linux.
 
 # Create the user
 
@@ -448,7 +448,7 @@ Remove the # so it becomes:
 
 Save and exit.
 
->[!note] visudo checks the file for syntax errors before saving, which helps prevent accidentally breaking sudo.
+>visudo checks the file for syntax errors before saving, which helps prevent accidentally breaking sudo.
 
 **Test (optional)**
 
@@ -460,7 +460,7 @@ id <username>
 ```
 
 
->[!note] You should see that **username** belongs to the wheel group.
+>You should see that **username** belongs to the wheel group.
 
 
 # Install limine-tool
@@ -505,7 +505,7 @@ command -v limine-entry-tool
 
 
 
->[!note] You should get paths under `/usr/bin/`. The package provides these commands through a single `/usr/lib/limine/limine-tool` multicall executable.
+>You should get paths under `/usr/bin/`. The package provides these commands through a single `/usr/lib/limine/limine-tool` multicall executable.
 
 
 **Return to root**:
@@ -566,7 +566,7 @@ FIND_BOOTLOADERS=yes
 ```
 
 
->[!important] Replace YOUR_PARTUUID with the PARTUUID from blkid.
+>Replace YOUR_PARTUUID with the PARTUUID from blkid.
 
 
 # Install Limine into the EFI System Partition:
@@ -577,7 +577,7 @@ limine-install
 ```
 
 
->[!note] `limine-install` can detect the ESP and deploy Limine; if ESP auto-detection fails, `ESP_PATH` can be specified in `/etc/default/limine`.
+>`limine-install` can detect the ESP and deploy Limine; if ESP auto-detection fails, `ESP_PATH` can be specified in `/etc/default/limine`.
 
 
 Generate the initial configuration and kernel entries:
@@ -597,7 +597,7 @@ efibootmgr --verbose
 ```
 
 
->[!note] The tool automatically creates entries for both `linux-zen` and `linux-lts`using your current `mkinitcpio` presets. Future kernel updates regenerate the entries automatically.
+>The tool automatically creates entries for both `linux-zen` and `linux-lts`using your current `mkinitcpio` presets. Future kernel updates regenerate the entries automatically.
 
 
 # General Desktop and Utilities
@@ -638,7 +638,7 @@ systemctl enable NetworkManager.service firewalld.service plasmalogin.service po
 ```
 
 
->[!note] If you use Bluetooth, add:
+>If you use Bluetooth, add:
 
 ```
 pacman -S bluez bluez-utils bluedevil
@@ -646,7 +646,7 @@ systemctl enable bluetooth.service
 ```
 
 
->[!important] **Graphics driver:** Before rebooting, install the graphics stack that matches your GPU. Use `nvidia-open-dkms nvidia-utils` for supported NVIDIA GPUs, `mesa vulkan-intel` for Intel GPUs, `mesa vulkan-radeon` for AMD GPUs o `mesa mesa-utils` for a virtual machine. Install only the appropriate option for your hardware.
+>**Graphics driver:** Before rebooting, install the graphics stack that matches your GPU. Use `nvidia-open-dkms nvidia-utils` for supported NVIDIA GPUs, `mesa vulkan-intel` for Intel GPUs, `mesa vulkan-radeon` for AMD GPUs o `mesa mesa-utils` for a virtual machine. Install only the appropriate option for your hardware.
 
 # Exit the chroot
 
