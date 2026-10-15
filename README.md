@@ -5,7 +5,7 @@
 A step-by-step Arch Linux installation guide for a **UEFI system using GPT, ext4, Limine, and the linux-zen kernel**. It covers disk partitioning, base system configuration, networking, ZRAM, users and sudo, automated Limine kernel management with `limine-tool`, and a functional KDE Plasma desktop. It also includes `linux-lts` as a fallback kernel and essential system services and utilities.
 
 
->[!important] **UEFI requirement:** This guide is intended exclusively for systems booted in UEFI mode with secure boot disabled. 
+>**UEFI requirement:** This guide is intended exclusively for systems booted in UEFI mode with secure boot disabled. 
 
 
 # Boot the ISO
