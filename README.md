@@ -103,7 +103,7 @@ Create a **GPT** partition table with:
 
 | Partition            | Size            | Type             |
 | -------------------- | --------------- | ---------------- |
-| EFI System Partition | 2 GiB           | EFI System       |
+| EFI System Partition | 6 GiB           | EFI System       |
 | Root (`/`)           | Remaining space | Linux filesystem |
 
 <img width="1021" height="767" alt="cfdisk" src="https://github.com/user-attachments/assets/9ef1eea5-a0ff-4d1d-9e7f-2a217124b200" />
