@@ -651,8 +651,48 @@ systemctl enable bluetooth.service
 ```
 
 
->**Graphics driver**: Before rebooting, install the graphics stack that matches your GPU. Use **nvidia-open-dkms nvidia-utils** only for supported Turing and newer NVIDIA GPUs. Older NVIDIA GPUs require the proprietary nvidia driver packages instead. Use **mesa vulkan-intel** for Intel GPUs, **mesa vulkan-radeon** for AMD GPUs, or **mesa mesa-utils** for a virtual machine. 
-**Install only the option appropriate for your hardware**.
+# Graphics driver
+
+Before rebooting, install the graphics stack that matches your GPU. 
+
+## NVIDIA
+
+
+```
+nvidia-open-dkms nvidia-utils 
+```
+
+
+>Only for **supported Turing and newer NVIDIA GPUs**. Older NVIDIA GPUs require the proprietary `nvidia` driver packages instead. 
+
+
+## INTEL
+
+
+```
+mesa vulkan-intel
+```
+
+
+## AMD
+
+
+```
+mesa vulkan-radeon
+```
+
+
+## VirtuaL Machine
+
+
+```
+mesa mesa-utils
+```
+
+
+
+>**Install only the option appropriate for your hardware.**
+
 
 # Exit the chroot
 
