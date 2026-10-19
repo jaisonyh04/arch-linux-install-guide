@@ -629,7 +629,7 @@ pacman -S firewalld plasma-firewall power-profiles-daemon python-gobject \
 ```
 pacman -S konsole dolphin ark kate gwenview
 pacman -S firefox btop vlc kcalc okular
-pacman -S spectacle kinfocenter
+pacman -S spectacle kinfocenter gnome-disk-utility
 ```
 
 # Enable the required system services
