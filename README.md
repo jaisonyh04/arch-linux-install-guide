@@ -148,7 +148,7 @@ pacstrap -K /mnt \
   linux-zen linux-zen-headers \
   linux-lts linux-lts-headers \
   linux-firmware zram-generator vim nano sudo \
-  networkmanager limine efibootmgr
+  limine efibootmgr
 ```
 
 
@@ -610,16 +610,16 @@ efibootmgr --verbose
 
 ```
 pacman -S plasma-desktop plasma-login-manager \
-    plasma-nm plasma-pa kscreen xdg-desktop-portal-kde \
+    plasma-pa kscreen xdg-desktop-portal-kde \
     breeze breeze-gtk kde-gtk-config kwallet-pam \
-    noto-fonts
+    noto-fonts fastfetch power-profiles-daemon
 ```
 
-## Networking, audio, and firewall
+## Networking, firewall and audio
 
 
 ```
-pacman -S firewalld plasma-firewall power-profiles-daemon python-gobject \
+pacman -S networkmanager plasma-nm firewalld plasma-firewall python-gobject \
     pipewire pipewire-audio pipewire-pulse wireplumber
 ```
 
