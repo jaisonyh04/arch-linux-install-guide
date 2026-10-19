@@ -47,7 +47,7 @@ setfont ter-v24b
 ```
 
 
-# Verify internet:
+# Verify internet
 
 
 ```
