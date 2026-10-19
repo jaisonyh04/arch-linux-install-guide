@@ -47,7 +47,7 @@ setfont ter-v24b
 ```
 
 
-**Verify internet**:
+# Verify internet:
 
 
 ```
@@ -58,15 +58,12 @@ ping -c 3 archlinux.org
 >If it works, you're ready.
 
 
-## Identify the target disk
+# Identify the disk where Arch Linux will be installed
 
 
 ```
 lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS,MODEL
 ```
-
-
-Identify the disk where Arch Linux will be installed.
 
 For example:
 
@@ -109,7 +106,7 @@ Create a **GPT** partition table with:
 <img width="1021" height="767" alt="cfdisk" src="https://github.com/user-attachments/assets/9ef1eea5-a0ff-4d1d-9e7f-2a217124b200" />
 
 
-## Format the partitions
+# Format the partitions
 
 
 Replace the placeholders with the partitions created above:
@@ -130,7 +127,7 @@ mkfs.ext4 /dev/nvme0n1p2
 ```
 
 
-## Mount the filesystems
+# Mount the filesystems
 
 
 ```
@@ -269,7 +266,7 @@ en_US.UTF-8 UTF-8
 
 Save and exit (Ctrl + O, Enter, Ctrl + X).
 
-**Generate the locales**
+## Generate the locales
 
 
 ```
@@ -289,7 +286,7 @@ Generating locales...
 ```
 
 
-**Set the default locale**
+## Set the default locale
 
 If you want your system in English, run:
 
@@ -341,7 +338,7 @@ cat /etc/hostname
 ```
 
 
-**Configure /etc/hosts**
+# Configure /etc/hosts
 
 
 ```
@@ -412,7 +409,7 @@ What the options mean:
   
 -s /bin/bash = Set Bash as the default shell
 
-**Set your user's password**
+# Set your user's password
 
 
 ```
@@ -452,7 +449,7 @@ Save and exit (Ctrl + O, Enter, Ctrl + X).
 
 >visudo checks the file for syntax errors before saving, which helps prevent accidentally breaking sudo.
 
-**Test (optional)**
+Test (optional)
 
 You can confirm your user exists:
 
@@ -467,7 +464,7 @@ id <username>
 
 # Install limine-tool
 
-**Switch to your newly created user account**:
+Switch to your newly created user account:
 
 
 ```
@@ -490,7 +487,7 @@ makepkg -si
 
 
 
-**Verify**
+Verify
 
 
 ```
@@ -510,7 +507,7 @@ command -v limine-entry-tool
 >You should get paths under `/usr/bin/`. The package provides these commands through a single `/usr/lib/limine/limine-tool` multicall executable.
 
 
-**Return to root**:
+Return to root:
 
 
 ```
@@ -534,7 +531,7 @@ Expected:
 ```
 
 
-# Configure Limine:
+# Configure Limine
 
 First obtain the **PARTUUID** of the **root partition**:
 
@@ -574,7 +571,7 @@ Save and exit (Ctrl + O, Enter, Ctrl + X).
 >Replace YOUR_PARTUUID with the PARTUUID from blkid.
 
 
-# Install Limine into the EFI System Partition:
+# Install Limine into the EFI System Partition
 
 
 ```
@@ -608,7 +605,7 @@ efibootmgr --verbose
 # General Desktop and Utilities
 
 
-## **Functional Plasma desktop**
+## Functional Plasma desktop
 
 
 ```
@@ -618,7 +615,7 @@ pacman -S plasma-desktop plasma-login-manager \
     noto-fonts
 ```
 
-## **Networking, audio, and firewall**
+## Networking, audio, and firewall
 
 
 ```
@@ -626,7 +623,7 @@ pacman -S firewalld plasma-firewall power-profiles-daemon python-gobject \
     pipewire pipewire-audio pipewire-pulse wireplumber
 ```
 
-## **Applications**
+## Applications
 
 
 ```
@@ -635,7 +632,7 @@ pacman -S firefox btop vlc kcalc okular
 pacman -S spectacle kinfocenter
 ```
 
-# **Enable the required system services**
+# Enable the required system services
 
 
 ```
