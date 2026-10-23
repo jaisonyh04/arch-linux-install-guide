@@ -2,7 +2,7 @@
 
 # Guide description 
 
-A step-by-step Arch Linux installation guide for a **UEFI system using GPT, ext4, Limine, and the linux-zen kernel**. It covers disk partitioning, base system configuration, networking, ZRAM, users and sudo, automated Limine kernel management with `limine-tool`, and a functional KDE Plasma desktop. It also includes `linux-lts` as a fallback kernel and essential system services and utilities.
+A step-by-step Arch Linux installation guide for a `UEFI` system using `GPT`, `ext4`, `Limine`, and the `linux-lts` as a fallback kernel. It covers disk partitioning, base system configuration, networking, ZRAM, users and sudo, automated Limine kernel management with `limine-tool`, and a functional KDE Plasma desktop. It also includes essential system services and utilities.
 
 
 >**UEFI requirement:** This guide is intended exclusively for systems booted in UEFI mode with secure boot disabled. 
@@ -145,7 +145,7 @@ mount /dev/<efi-partition> /mnt/boot
 ```
 pacstrap -K /mnt \
   base base-devel git \
-  linux-zen linux-zen-headers \
+  linux linux-headers \
   linux-lts linux-lts-headers \
   linux-firmware zram-generator vim nano sudo \
   limine efibootmgr
@@ -599,7 +599,7 @@ efibootmgr --verbose
 ```
 
 
->The tool automatically creates entries for both `linux-zen` and `linux-lts`using your current `mkinitcpio` presets. Future kernel updates regenerate the entries automatically.
+>The tool automatically creates entries for both `linux` and `linux-lts`using your current `mkinitcpio` presets. Future kernel updates regenerate the entries automatically.
 
 
 # General Desktop and Utilities
@@ -612,7 +612,7 @@ efibootmgr --verbose
 pacman -S plasma-desktop plasma-login-manager \
     plasma-pa kscreen xdg-desktop-portal-kde \
     breeze breeze-gtk kde-gtk-config kwallet-pam \
-    noto-fonts fastfetch power-profiles-daemon
+    noto-fonts power-profiles-daemon
 ```
 
 ## Networking, firewall and audio
@@ -629,7 +629,7 @@ pacman -S networkmanager plasma-nm firewalld plasma-firewall python-gobject \
 ```
 pacman -S konsole dolphin ark kate gwenview
 pacman -S firefox btop vlc kcalc okular
-pacman -S spectacle kinfocenter gnome-disk-utility
+pacman -S spectacle kinfocenter
 ```
 
 # Enable the required system services
