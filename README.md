@@ -584,7 +584,7 @@ limine-install
 >`limine-install` reads its configuration from `/etc/default/limine`. In this guide, `ESP_PATH=/boot` is configured beforehand so the correct EFI System Partition is used. If `ESP_PATH` is omitted, `limine-install` will attempt to detect the ESP automatically.
 
 
-Generate the initial configuration and kernel entries:
+## Generate the initial configuration and kernel entries:
 
 
 ```
