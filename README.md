@@ -1,3 +1,5 @@
+<img width="8000" height="2659" alt="Arch-Linux" src="https://github.com/user-attachments/assets/83253577-9249-4fa3-978f-e2dcaa7bcf64" />
+
 # Guide description:
 
 A step-by-step Arch Linux installation guide for a `UEFI` system using `GPT`, `ext4`, `Limine`, and the `linux-lts` as a fallback kernel. It covers disk partitioning, base system configuration, networking, ZRAM, users and sudo, automated Limine kernel management with `limine-tool`, and a functional KDE Plasma desktop. It also includes essential system services and utilities.
