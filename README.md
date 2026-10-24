@@ -1,16 +1,14 @@
-<img width="1018" height="766" alt="Plasma-Desktop" src="https://github.com/user-attachments/assets/17b39f91-872c-4b96-9c09-9a3bc088326e" />
-
-# Guide description 
+# Guide description:
 
 A step-by-step Arch Linux installation guide for a `UEFI` system using `GPT`, `ext4`, `Limine`, and the `linux-lts` as a fallback kernel. It covers disk partitioning, base system configuration, networking, ZRAM, users and sudo, automated Limine kernel management with `limine-tool`, and a functional KDE Plasma desktop. It also includes essential system services and utilities.
 
+# Boot the live environment
 
->**UEFI requirement:** This guide is intended exclusively for systems booted in UEFI mode with secure boot disabled. 
+
+>This guide is intended exclusively for systems booted in UEFI mode with secure boot disabled. Arch Linux installation images do not support secure boot. You will need to disable secure boot to boot the installation medium. If desired, Secure Boot can be set up after completing the installation.
 
 
-# Boot the ISO
-
-Verify the boot mode before continuing:
+# Verify the boot mode
 
 
 ```
@@ -58,12 +56,13 @@ ping -c 3 archlinux.org
 >If it works, you're ready.
 
 
-# Identify the disk where Arch Linux will be installed
+# Identify the target disk where Arch Linux will be installed
 
 
 ```
 lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS,MODEL
 ```
+
 
 For example:
 
@@ -100,11 +99,8 @@ Create a **GPT** partition table with:
 
 | Partition            | Size            | Type             |
 | -------------------- | --------------- | ---------------- |
-| EFI System Partition | 6 GiB           | EFI System       |
+| EFI System Partition | 2 GiB           | EFI System       |
 | Root (`/`)           | Remaining space | Linux filesystem |
-
-<img width="1021" height="767" alt="cfdisk" src="https://github.com/user-attachments/assets/9ef1eea5-a0ff-4d1d-9e7f-2a217124b200" />
-
 
 # Format the partitions
 
@@ -113,16 +109,16 @@ Replace the placeholders with the partitions created above:
 
 
 ```
-mkfs.fat -F32 /dev/<efi-partition>
+mkfs.fat -F 32 /dev/<efi-partition>
 mkfs.ext4 /dev/<root-partition>
 ```
 
 
-Example for an NVMe drive:
+Example for an **NVMe** drive:
 
 
 ```
-mkfs.fat -F32 /dev/nvme0n1p1
+mkfs.fat -F 32 /dev/nvme0n1p1
 mkfs.ext4 /dev/nvme0n1p2
 ```
 
@@ -133,13 +129,11 @@ mkfs.ext4 /dev/nvme0n1p2
 ```
 mount /dev/<root-partition> /mnt
 
-mkdir /mnt/boot
-
-mount /dev/<efi-partition> /mnt/boot
+mount --mkdir /dev/<efi-partition> /mnt/boot
 ```
 
 
-# Install the base system
+# Install essential packages
 
 
 ```
@@ -155,7 +149,7 @@ pacstrap -K /mnt \
 >**CPU microcode**: During `pacstrap`, add `intel-ucode` for an Intel processor or `amd-ucode` for an AMD processor. Install only the package that matches your CPU.
 
 
-# Generate fstab
+# Fstab
 
 
 ```
@@ -197,10 +191,10 @@ compression-algorithm = zstd
 swap-priority = 100
 ```
 
+
 Save and exit (Ctrl + O, Enter, Ctrl + X).
 
-
-# Set time zone
+# Time
 
 Find your time zone::
 
@@ -244,7 +238,7 @@ date
 ```
 
 
-# Configure the locale
+# Localization
 
 Open the file:
 
@@ -312,14 +306,18 @@ LANG=en_US.UTF-8
 ```
 
 
-# Set the hostname
+# Network configuration
 
-Replace `<hostname>` with the desired hostname:
+
+Set the system hostname by creating the `/etc/hostname` file:
 
 
 ```
 echo "<hostname>" > /etc/hostname
 ```
+
+
+Replace `<hostname>` with the desired hostname.
 
 
 Example:
@@ -338,7 +336,7 @@ cat /etc/hostname
 ```
 
 
-# Configure /etc/hosts
+## Configure /etc/hosts
 
 
 ```
@@ -381,7 +379,7 @@ Expected output:
 ```
 
 
-# Set the root password
+# Root password
 
 
 ```
@@ -391,7 +389,7 @@ passwd
 
 >You'll be prompted to enter and confirm a password. As you type, **nothing will appear on the screen**, this is normal in Linux.
 
-# Create the user
+# Users and groups
 
 Replace `<username>` with the desired username:
 
@@ -409,7 +407,7 @@ What the options mean:
   
 -s /bin/bash = Set Bash as the default shell
 
-# Set your user's password
+## Set your user's password
 
 
 ```
@@ -419,7 +417,7 @@ passwd <username>
 
 Again, enter and confirm the password.
 
-# Allow the wheel group to use sudo
+## Allow the wheel group to use sudo
 
 Open the sudoers file **using** **visudo** (never edit it directly with nano):
 
@@ -447,7 +445,9 @@ Remove the # so it becomes:
 
 Save and exit (Ctrl + O, Enter, Ctrl + X).
 
+
 >visudo checks the file for syntax errors before saving, which helps prevent accidentally breaking sudo.
+
 
 Test (optional)
 
@@ -462,7 +462,7 @@ id <username>
 >You should see that **username** belongs to the wheel group.
 
 
-# Install limine-tool
+# Boot loader
 
 Switch to your newly created user account:
 
@@ -478,6 +478,8 @@ sudo pacman -S --needed git base-devel rust
 ```
 
 
+## Install limine-tool
+
 
 ```
 git clone https://github.com/CatOS-dev/limine-tool.git
@@ -487,7 +489,7 @@ makepkg -si
 
 
 
-Verify
+Verify:
 
 
 ```
@@ -515,7 +517,7 @@ exit
 ```
 
 
-# Verify ESP detection:
+## Verify ESP detection
 
 
 ```
@@ -531,7 +533,7 @@ Expected:
 ```
 
 
-# Configure Limine
+## Configure Limine
 
 First obtain the **PARTUUID** of the **root partition**:
 
@@ -561,7 +563,7 @@ with:
 ESP_PATH=/boot
 KERNEL_CMDLINE[default]=root=PARTUUID=YOUR_PARTUUID rw quiet
 KERNEL_CMDLINE[linux-lts]=root=PARTUUID=YOUR_PARTUUID rw
-FIND_BOOTLOADERS=yes
+FIND_BOOTLOADERS=no
 ```
 
 
@@ -571,7 +573,7 @@ Save and exit (Ctrl + O, Enter, Ctrl + X).
 >Replace YOUR_PARTUUID with the PARTUUID from blkid.
 
 
-# Install Limine into the EFI System Partition
+## Install Limine into the EFI System Partition
 
 
 ```
@@ -612,7 +614,7 @@ efibootmgr --verbose
 pacman -S plasma-desktop plasma-login-manager \
     plasma-pa kscreen xdg-desktop-portal-kde \
     breeze breeze-gtk kde-gtk-config kwallet-pam \
-    noto-fonts power-profiles-daemon
+    noto-fonts fastfetch power-profiles-daemon
 ```
 
 ## Networking, firewall and audio
@@ -632,7 +634,7 @@ pacman -S firefox btop vlc kcalc okular
 pacman -S spectacle kinfocenter
 ```
 
-# Enable the required system services
+## Enable the required system services
 
 
 ```
@@ -688,18 +690,16 @@ mesa mesa-utils
 
 
 
->**Install only the option appropriate for your hardware.**
+>Install **only the option appropriate for your hardware.**
 
 
-# Exit the chroot
+# Exit the chroot environment and reboot
 
 
 ```
 exit
 ```
 
-
-# Unmount the installed system
 
 
 ```
@@ -711,15 +711,4 @@ umount -R /mnt
 ```
 reboot
 ```
-
-
-<img width="1018" height="767" alt="Limine-boot-menu" src="https://github.com/user-attachments/assets/048190af-f2ec-42f2-a352-a4d4cce44ee6" />
-
-<img width="1014" height="766" alt="KDE-Login" src="https://github.com/user-attachments/assets/6532d061-5517-4a28-a5d0-4caeb5901ac9" />
-
-<img width="1021" height="765" alt="KInfoCenter" src="https://github.com/user-attachments/assets/c8990c2a-0d73-45de-b24c-0066e5c2ab89" />
-
-<img width="1019" height="765" alt="btop" src="https://github.com/user-attachments/assets/30c77a61-9997-4dc9-b2d5-ef7e2be26336" />
-
-
 
