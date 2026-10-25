@@ -6,6 +6,8 @@ A step-by-step Arch Linux installation guide for a `UEFI` system using `GPT`, `e
 
 # Boot the live environment
 
+<img width="558" height="178" alt="live environment" src="https://github.com/user-attachments/assets/28cdb2ce-56f7-4da5-9163-ad80d174e36a" />
+
 
 >This guide is intended exclusively for systems booted in UEFI mode with secure boot disabled. Arch Linux installation images do not support secure boot. You will need to disable secure boot to boot the installation medium. If desired, Secure Boot can be set up after completing the installation.
 
@@ -104,6 +106,8 @@ Create a **GPT** partition table with:
 | EFI System Partition | 2 GiB           | EFI System       |
 | Root (`/`)           | Remaining space | Linux filesystem |
 
+<img width="1250" height="762" alt="2 - cfdisk ⁄dev⁄ disk" src="https://github.com/user-attachments/assets/e921c6de-6eae-4eb4-a1cf-534b711afb7c" />
+
 # Format the partitions
 
 
@@ -123,6 +127,7 @@ Example for an **NVMe** drive:
 mkfs.fat -F 32 /dev/nvme0n1p1
 mkfs.ext4 /dev/nvme0n1p2
 ```
+<img width="927" height="528" alt="3 - Format the partitions" src="https://github.com/user-attachments/assets/8b16fd70-36f1-49fc-b188-eb602680726a" />
 
 
 # Mount the filesystems
@@ -134,6 +139,7 @@ mount /dev/<root-partition> /mnt
 mount --mkdir /dev/<efi-partition> /mnt/boot
 ```
 
+<img width="778" height="208" alt="4 - Mount the filesystems" src="https://github.com/user-attachments/assets/59913a80-7105-44f8-8395-63618ba91c13" />
 
 # Install essential packages
 
@@ -543,6 +549,7 @@ First obtain the **PARTUUID** of the **root partition**:
 ```
 blkid -s PARTUUID -o value /dev/<root-partition>
 ```
+<img width="638" height="50" alt="5 - blkid -s PARTUUID -o value ⁄dev⁄ root-partition" src="https://github.com/user-attachments/assets/7a8fcea7-b5af-4a96-b059-66cbe05464b7" />
 
 
 ```
@@ -568,6 +575,7 @@ KERNEL_CMDLINE[linux-lts]=root=PARTUUID=YOUR_PARTUUID rw
 FIND_BOOTLOADERS=no
 ```
 
+<img width="1222" height="765" alt="6 - ⁄etc⁄default⁄limine" src="https://github.com/user-attachments/assets/3f1ceedf-aca2-4025-ace9-1c2107b28c9e" />
 
 Save and exit (Ctrl + O, Enter, Ctrl + X).
 
@@ -713,4 +721,7 @@ umount -R /mnt
 ```
 reboot
 ```
+<img width="888" height="762" alt="7 - limine" src="https://github.com/user-attachments/assets/f6d9c9a1-04ca-419d-9305-10ac91384106" />
+<img width="1230" height="764" alt="8 - plasma-login-manager" src="https://github.com/user-attachments/assets/a216d467-d827-412e-918f-af2673d96310" />
+<img width="1222" height="765" alt="9 - desktop" src="https://github.com/user-attachments/assets/cbda10ea-cd6c-43bb-86bf-94426f189e88" />
 
