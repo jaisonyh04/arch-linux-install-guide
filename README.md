@@ -552,11 +552,6 @@ blkid -s PARTUUID -o value /dev/<root-partition>
 <img width="638" height="50" alt="5 - blkid -s PARTUUID -o value ⁄dev⁄ root-partition" src="https://github.com/user-attachments/assets/7a8fcea7-b5af-4a96-b059-66cbe05464b7" />
 
 
-```
-lsblk -o NAME,FSTYPE,PARTUUID,MOUNTPOINTS
-```
-
-
 Then create:
 
 
