@@ -570,12 +570,11 @@ KERNEL_CMDLINE[linux-lts]=root=PARTUUID=YOUR_PARTUUID rw
 FIND_BOOTLOADERS=no
 ```
 
+>Replace YOUR_PARTUUID with the PARTUUID from blkid.
+
 <img width="1222" height="765" alt="6 - ⁄etc⁄default⁄limine" src="https://github.com/user-attachments/assets/3f1ceedf-aca2-4025-ace9-1c2107b28c9e" />
 
 Save and exit (Ctrl + O, Enter, Ctrl + X).
-
-
->Replace YOUR_PARTUUID with the PARTUUID from blkid.
 
 
 ## Install Limine into the EFI System Partition
