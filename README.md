@@ -76,6 +76,7 @@ For example:
 /dev/vda
 ```
 
+<img width="568" height="114" alt="lsblk" src="https://github.com/user-attachments/assets/89955acb-64d7-4eab-8d78-722237d911c9" />
 
 >Verify the disk model and capacity carefully. Selecting the wrong disk during partitioning or formatting can permanently destroy data.
 
